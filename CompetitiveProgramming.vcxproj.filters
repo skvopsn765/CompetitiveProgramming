@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="來源檔案">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="標頭檔">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="資源檔">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Templates">
+      <UniqueIdentifier>{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Problems">
+      <UniqueIdentifier>{9FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Problems\UVA_100">
+      <UniqueIdentifier>{1FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{2FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Templates\template.cpp">
+      <Filter>Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="Templates\basic_template.cpp">
+      <Filter>Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\test_runner.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Problems\UVA_100\solution.cpp">
+      <Filter>Problems\UVA_100</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\simple_test.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Problems\UVA_100\input1.txt">
+      <Filter>Problems\UVA_100</Filter>
+    </Text>
+    <Text Include="Problems\UVA_100\expected1.txt">
+      <Filter>Problems\UVA_100</Filter>
+    </Text>
+    <Text Include="Problems\UVA_100\input2.txt">
+      <Filter>Problems\UVA_100</Filter>
+    </Text>
+    <Text Include="Problems\UVA_100\expected2.txt">
+      <Filter>Problems\UVA_100</Filter>
+    </Text>
+    <Text Include="Problems\UVA_100\problem_description.txt">
+      <Filter>Problems\UVA_100</Filter>
+    </Text>
+    <Text Include="Utils\build_and_test.bat">
+      <Filter>Utils</Filter>
+    </Text>
+    <Text Include="README.md">
+      <Filter>資源檔</Filter>
+    </Text>
+    <Text Include="QUICK_START.md">
+      <Filter>資源檔</Filter>
+    </Text>
+    <Text Include="VISUAL_STUDIO_GUIDE.md">
+      <Filter>資源檔</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

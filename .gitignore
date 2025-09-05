@@ -1,0 +1,67 @@
+# Visual Studio 相關檔案
+.vs/
+*.vcxproj.user
+*.suo
+*.sdf
+*.opensdf
+*.db
+*.opendb
+*.ipch
+*.aps
+*.ncb
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.sbr
+*.scc
+[Bb]in/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Oo]bj/
+[Tt]emp/
+[Tt]mp/
+*.tmp
+*.user
+*.userosscache
+*.sln.docstates
+*.vsidx
+
+# 編譯產生的檔案
+*.exe
+*.dll
+*.pdb
+*.idb
+*.obj
+*.pch
+*.res
+*.exp
+*.lib
+
+# 測試相關檔案
+*/output.txt
+*/input.txt
+*/expected.txt
+
+# 但保留範例測試檔案
+!*/input*.txt
+!*/expected*.txt
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE 設定檔案
+.vscode/
+.idea/
+
+# 暫存檔案
+*.bak
+*.orig

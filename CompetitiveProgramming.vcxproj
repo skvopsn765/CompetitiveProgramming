@@ -151,6 +151,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Problems\UVA_100\solution.cpp" />
+    <ClCompile Include="Problems\UVA_100\test.cpp" />
+    <ClCompile Include="Utils\IOManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utils\TestFramework.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Problems\UVA_100\input.txt" />

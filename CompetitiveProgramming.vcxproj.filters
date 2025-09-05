@@ -39,9 +39,20 @@
     <ClCompile Include="Problems\UVA_100\solution.cpp">
       <Filter>Problems\UVA_100</Filter>
     </ClCompile>
+    <ClCompile Include="Problems\UVA_100\test.cpp">
+      <Filter>Problems\UVA_100</Filter>
+    </ClCompile>
     <ClCompile Include="Utils\simple_test.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\IOManager.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utils\TestFramework.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Problems\UVA_100\input.txt">

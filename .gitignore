@@ -42,14 +42,8 @@ x86/
 *.exp
 *.lib
 
-# 測試相關檔案
+# 測試相關檔案（這些會從 uDebug 動態產生）
 */output.txt
-*/input.txt
-*/expected.txt
-
-# 但保留範例測試檔案
-!*/input*.txt
-!*/expected*.txt
 
 # 系統檔案
 .DS_Store

@@ -44,16 +44,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Problems\UVA_100\input1.txt">
+    <Text Include="Problems\UVA_100\input.txt">
       <Filter>Problems\UVA_100</Filter>
     </Text>
-    <Text Include="Problems\UVA_100\expected1.txt">
-      <Filter>Problems\UVA_100</Filter>
-    </Text>
-    <Text Include="Problems\UVA_100\input2.txt">
-      <Filter>Problems\UVA_100</Filter>
-    </Text>
-    <Text Include="Problems\UVA_100\expected2.txt">
+    <Text Include="Problems\UVA_100\expected.txt">
       <Filter>Problems\UVA_100</Filter>
     </Text>
     <Text Include="Problems\UVA_100\problem_description.txt">
@@ -69,6 +63,9 @@
       <Filter>資源檔</Filter>
     </Text>
     <Text Include="VISUAL_STUDIO_GUIDE.md">
+      <Filter>資源檔</Filter>
+    </Text>
+    <Text Include="UDEBUG_INTEGRATION.md">
       <Filter>資源檔</Filter>
     </Text>
   </ItemGroup>

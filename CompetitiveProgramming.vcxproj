@@ -153,13 +153,12 @@
     <ClCompile Include="Problems\UVA_100\solution.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Problems\UVA_100\input1.txt" />
-    <Text Include="Problems\UVA_100\expected1.txt" />
-    <Text Include="Problems\UVA_100\input2.txt" />
-    <Text Include="Problems\UVA_100\expected2.txt" />
+    <Text Include="Problems\UVA_100\input.txt" />
+    <Text Include="Problems\UVA_100\expected.txt" />
     <Text Include="Problems\UVA_100\problem_description.txt" />
     <Text Include="Utils\build_and_test.bat" />
     <Text Include="README.md" />
+    <Text Include="UDEBUG_INTEGRATION.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

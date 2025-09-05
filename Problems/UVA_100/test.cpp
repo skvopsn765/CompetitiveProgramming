@@ -1,5 +1,6 @@
 #include "../../Utils/TestFramework.h"
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 using namespace std;
 
@@ -46,35 +47,22 @@ public:
 int main() {
     UVA100Test test;
     
-    // 方法一：從檔案載入測試資料
-    test.loadInputFromFile("input1.txt");
-    test.setExpectedOutput("1 10 20\n100 200 125\n201 210 89\n900 1000 174\n");
-    test.runTest();
+    // 從 input.txt 載入測試資料，從 expected.txt 載入預期輸出
+    test.loadInputFromFile("input.txt");
     
-    // 方法二：手動設定測試資料（從 uDebug 複製貼上）
-    cout << "\n=== Manual Test (paste from uDebug) ===" << endl;
-    cout << "Paste your input here and press Enter twice:" << endl;
-    
-    string input, line;
-    while (getline(cin, line) && !line.empty()) {
-        input += line + "\n";
-    }
-    
-    if (!input.empty()) {
-        test.setInput(input);
-        
-        cout << "Paste expected output (optional, press Enter twice to skip):" << endl;
-        string expected;
-        while (getline(cin, line) && !line.empty()) {
+    // 讀取預期輸出
+    ifstream expectedFile("Problems/UVA_100/expected.txt");
+    if (expectedFile.is_open()) {
+        string expected, line;
+        while (getline(expectedFile, line)) {
             expected += line + "\n";
         }
-        
-        if (!expected.empty()) {
-            test.setExpectedOutput(expected);
-        }
-        
-        test.runTest();
+        expectedFile.close();
+        test.setExpectedOutput(expected);
     }
+    
+    // 執行測試
+    test.runTest();
     
     return 0;
 }

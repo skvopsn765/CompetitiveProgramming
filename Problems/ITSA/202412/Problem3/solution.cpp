@@ -26,7 +26,7 @@ int main()
         newStr += line[index];
         index += interval + 1;
     }
-    cout << newStr << endl;
+    cout << newStr << '\n';
 
     return 0;
 }

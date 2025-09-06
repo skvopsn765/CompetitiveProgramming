@@ -5,6 +5,13 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CompetitiveProgramming", "CompetitiveProgramming.vcxproj", "{94950180-158F-4C1E-B71D-0F54E144A088}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{84E05E88-CFEB-48CC-BCF2-F2CA5A7F4541}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{3AA52C4E-CC3C-4296-BE37-7456E3FCD12D}"
+	ProjectSection(SolutionItems) = preProject
+		container_demo.cpp = container_demo.cpp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -27,5 +34,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {96E883F1-B799-4B76-8E66-11EE036082DC}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AA52C4E-CC3C-4296-BE37-7456E3FCD12D} = {84E05E88-CFEB-48CC-BCF2-F2CA5A7F4541}
 	EndGlobalSection
 EndGlobal

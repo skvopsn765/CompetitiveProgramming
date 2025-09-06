@@ -4,11 +4,12 @@
 #include <vector>
 using namespace std;
 
-int main() {
+int main()
+{
     // Local testing: read from file
-    #ifdef LOCAL
+#ifdef LOCAL
     freopen("Problems/ITSA/202412/Problem1/input.txt", "r", stdin);
-    #endif
+#endif
 
     int count;
     cin >> count;
@@ -16,13 +17,16 @@ int main() {
     vector<vector<int>> nums(count, vector<int>(2));
     double minMinutes = 50000;
 
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
         cin >> nums[i][0] >> nums[i][1];
     }
 
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
         const double minutes = static_cast<double>(nums[i][0]) / static_cast<double>(nums[i][1]);
-        if (minutes < minMinutes) {
+        if (minutes < minMinutes)
+        {
             minMinutes = minutes;
         }
     }

@@ -39,6 +39,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
     <ClCompile Include="Templates\template.cpp">
       <Filter>Templates</Filter>
     </ClCompile>
@@ -50,12 +53,6 @@
     </ClCompile>
     <ClCompile Include="Problems\UVA_100\solution.cpp">
       <Filter>Problems\UVA_100</Filter>
-    </ClCompile>
-    <ClCompile Include="Problems\ITSA\202412\Problem1\solution.cpp">
-      <Filter>Problems\ITSA\202412\Problem1</Filter>
-    </ClCompile>
-    <ClCompile Include="Problems\ITSA\202412\Problem2\solution.cpp">
-      <Filter>Problems\ITSA\202412\Problem2</Filter>
     </ClCompile>
     <ClCompile Include="Problems\UVA_100\test.cpp">
       <Filter>Problems\UVA_100</Filter>
@@ -115,5 +112,13 @@
     <Text Include="UDEBUG_INTEGRATION.md">
       <Filter>資源檔</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Problems\ITSA\202412\Problem1\solution.cpp">
+      <Filter>Problems\ITSA\202412\Problem1</Filter>
+    </None>
+    <None Include="Problems\ITSA\202412\Problem2\solution.cpp">
+      <Filter>Problems\ITSA\202412\Problem2</Filter>
+    </None>
   </ItemGroup>
 </Project>

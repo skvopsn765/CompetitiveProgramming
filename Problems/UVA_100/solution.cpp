@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -16,6 +17,11 @@ int cycleLength(int n) {
 }
 
 int main() {
+    // Local testing: read from file
+    #ifdef LOCAL
+    freopen("Problems/UVA_100/input.txt", "r", stdin);
+    #endif
+    
     int i, j;
     while (cin >> i >> j) {
         int originalI = i, originalJ = j;

@@ -3,12 +3,19 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include <unordered_map>
+#include <vector>
 using namespace std;
 
-unordered_map<pair<string, string>, unordered_map<string, int>> build_table()
+
+int main()
 {
-    unordered_map<pair<string, string>, unordered_map<string, int>> table;
+    // Local testing: read from file
+#ifdef LOCAL
+    freopen("Problems/ITSA/202412/Problem2/input.txt", "r", stdin);
+#endif
+
+    map<pair<string, string>, map<string, int>> table = {};
+
     table[{"O", "O"}]["O"] = 100;
 
     table[{"O", "A"}]["O"] = 50;
@@ -42,25 +49,37 @@ unordered_map<pair<string, string>, unordered_map<string, int>> build_table()
     table[{"AS", "AS"}]["A"] = 25;
     table[{"AS", "AS"}]["S"] = 25;
     table[{"AS", "AS"}]["AS"] = 50;
-};
 
-
-int main()
-{
-    // Local testing: read from file
-#ifdef LOCAL
-    freopen("Problems/ITSA/202412/Problem2/input.txt", "r", stdin);
-#endif
-    auto table = build_table();
-
-    int round = 0;
-    cin >> round;
-
-    for (int i = 0; i < round; i++)
+    int n;
+    cin >> n;
+    struct my_struct
     {
-        string L, R, T;
-        cin >> L >> R >> T;
-
+        string first;
+        string second;
+        string result;
+    };
+    vector<my_struct> v(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> v[i].first >> v[i].second >> v[i].result;
+        auto outterIt = table.find({v[i].first, v[i].second});
+        if (outterIt != table.end())
+        {
+            auto innerMap = outterIt->second;
+            auto innerIt = innerMap.find(v[i].result);
+            if (innerIt != innerMap.end())
+            {
+                cout << innerIt->second << "\n";
+            }
+            else
+            {
+                cout << "NO" << "\n";
+            }
+        }
+        else
+        {
+            cout << "NO" << "\n";
+        }
     }
 
     return 0;

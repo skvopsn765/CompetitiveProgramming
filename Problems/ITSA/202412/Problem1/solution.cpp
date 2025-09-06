@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     // Local testing: read from file
     #ifdef LOCAL
-    freopen("Problems/Multiple_Jobs/input.txt", "r", stdin);
+    freopen("Problems/ITSA/202412/Problem1/input.txt", "r", stdin);
     #endif
 
     int count;

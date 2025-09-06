@@ -62,10 +62,10 @@ int main()
     for (int i = 0; i < n; i++)
     {
         cin >> v[i].first >> v[i].second >> v[i].result;
-        auto outterIt = table.find({v[i].first, v[i].second});
-        if (outterIt != table.end())
+        auto outerIt = table.find({v[i].first, v[i].second});
+        if (outerIt != table.end())
         {
-            auto innerMap = outterIt->second;
+            auto& innerMap = outerIt->second;
             auto innerIt = innerMap.find(v[i].result);
             if (innerIt != innerMap.end())
             {

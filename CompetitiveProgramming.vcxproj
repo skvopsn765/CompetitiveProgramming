@@ -151,18 +151,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Problems\UVA_100\solution.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Problems\UVA_100\test.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Utils\IOManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -174,28 +162,12 @@
     <ClInclude Include="Utils\TestFramework.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Problems\UVA_100\input.txt" />
-    <Text Include="Problems\UVA_100\expected.txt" />
-    <Text Include="Problems\UVA_100\problem_description.txt" />
-    <Text Include="Problems\ITSA\202412\Problem1\input.txt" />
-    <Text Include="Problems\ITSA\202412\Problem1\expected.txt" />
-    <Text Include="Problems\ITSA\202412\Problem1\problem_description.txt" />
-    <Text Include="Problems\ITSA\202412\Problem2\input.txt" />
-    <Text Include="Problems\ITSA\202412\Problem2\expected.txt" />
-    <Text Include="Problems\ITSA\202412\Problem2\problem_description.txt" />
     <Text Include="Utils\build_and_test.bat" />
     <Text Include="README.md" />
     <Text Include="UDEBUG_INTEGRATION.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Problems\ITSA\202412\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Problems\UVA_100\output.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Problems\ITSA\202412\Problem1\solution.cpp" />
-    <None Include="Problems\ITSA\202412\Problem2\solution.cpp" />
+    <None Include="Problems\**" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

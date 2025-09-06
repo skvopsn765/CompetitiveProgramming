@@ -21,22 +21,22 @@ int main() {
     #ifdef LOCAL
     freopen("Problems/UVA_100/input.txt", "r", stdin);
     #endif
-    
+
     int i, j;
     while (cin >> i >> j) {
         int originalI = i, originalJ = j;
-        
+
         if (i > j) {
             swap(i, j);
         }
-        
+
         int maxCycle = 0;
         for (int k = i; k <= j; k++) {
             maxCycle = max(maxCycle, cycleLength(k));
         }
-        
+
         cout << originalI << " " << originalJ << " " << maxCycle << endl;
     }
-    
+
     return 0;
 }

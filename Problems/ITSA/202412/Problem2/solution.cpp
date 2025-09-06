@@ -63,18 +63,21 @@ int main()
     {
         cin >> v[i].first >> v[i].second >> v[i].result;
         auto outerIt = table.find({v[i].first, v[i].second});
-        if (outerIt != table.end())
+        if (outerIt == table.end())
         {
-            auto& innerMap = outerIt->second;
-            auto innerIt = innerMap.find(v[i].result);
-            if (innerIt != innerMap.end())
-            {
-                cout << innerIt->second << "\n";
-            }
-            else
+            outerIt = table.find({v[i].second, v[i].first});
+            if (outerIt == table.end())
             {
                 cout << "NO" << "\n";
+                continue;
             }
+        }
+
+        auto& innerMap = outerIt->second;
+        auto innerIt = innerMap.find(v[i].result);
+        if (innerIt != innerMap.end())
+        {
+            cout << innerIt->second << "\n";
         }
         else
         {

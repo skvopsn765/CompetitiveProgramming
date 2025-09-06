@@ -22,8 +22,17 @@
     <Filter Include="Problems\UVA_100">
       <UniqueIdentifier>{1FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Problems\Multiple_Jobs">
-      <UniqueIdentifier>{3FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    <Filter Include="Problems\ITSA">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Problems\ITSA\202412">
+      <UniqueIdentifier>{5FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Problems\ITSA\202412\Problem1">
+      <UniqueIdentifier>{6FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Problems\ITSA\202412\Problem2">
+      <UniqueIdentifier>{7FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{2FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
@@ -42,8 +51,11 @@
     <ClCompile Include="Problems\UVA_100\solution.cpp">
       <Filter>Problems\UVA_100</Filter>
     </ClCompile>
-    <ClCompile Include="Problems\Multiple_Jobs\solution.cpp">
-      <Filter>Problems\Multiple_Jobs</Filter>
+    <ClCompile Include="Problems\ITSA\202412\Problem1\solution.cpp">
+      <Filter>Problems\ITSA\202412\Problem1</Filter>
+    </ClCompile>
+    <ClCompile Include="Problems\ITSA\202412\Problem2\solution.cpp">
+      <Filter>Problems\ITSA\202412\Problem2</Filter>
     </ClCompile>
     <ClCompile Include="Problems\UVA_100\test.cpp">
       <Filter>Problems\UVA_100</Filter>
@@ -70,14 +82,23 @@
     <Text Include="Problems\UVA_100\problem_description.txt">
       <Filter>Problems\UVA_100</Filter>
     </Text>
-    <Text Include="Problems\Multiple_Jobs\input.txt">
-      <Filter>Problems\Multiple_Jobs</Filter>
+    <Text Include="Problems\ITSA\202412\Problem1\input.txt">
+      <Filter>Problems\ITSA\202412\Problem1</Filter>
     </Text>
-    <Text Include="Problems\Multiple_Jobs\expected.txt">
-      <Filter>Problems\Multiple_Jobs</Filter>
+    <Text Include="Problems\ITSA\202412\Problem1\expected.txt">
+      <Filter>Problems\ITSA\202412\Problem1</Filter>
     </Text>
-    <Text Include="Problems\Multiple_Jobs\problem_description.txt">
-      <Filter>Problems\Multiple_Jobs</Filter>
+    <Text Include="Problems\ITSA\202412\Problem1\problem_description.txt">
+      <Filter>Problems\ITSA\202412\Problem1</Filter>
+    </Text>
+    <Text Include="Problems\ITSA\202412\Problem2\input.txt">
+      <Filter>Problems\ITSA\202412\Problem2</Filter>
+    </Text>
+    <Text Include="Problems\ITSA\202412\Problem2\expected.txt">
+      <Filter>Problems\ITSA\202412\Problem2</Filter>
+    </Text>
+    <Text Include="Problems\ITSA\202412\Problem2\problem_description.txt">
+      <Filter>Problems\ITSA\202412\Problem2</Filter>
     </Text>
     <Text Include="Utils\build_and_test.bat">
       <Filter>Utils</Filter>

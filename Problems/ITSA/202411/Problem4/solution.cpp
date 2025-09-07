@@ -18,23 +18,22 @@ int main()
     {
         string input;
         cin >> input;
-        int N;
-        for (int j = 0; j < input.size(); j++)
+        int N = 0;
+        for (char j : input)
         {
-            N += (input[i] - '0');
+            N += (j - '0');
         }
-        vector<int> factor;
-        int S;
-        for (int j = 1; j < N; j++)
+        int S = 1;
+        for (int j = 2; j * j < N; j++)
         {
             if (N % j == 0)
             {
-                factor.push_back(j);
                 S += j;
+                if (j != N / j) S += N / j;
             }
         }
         if (S > N) cout << "-1" << "\n";
-        if (S = N) cout << "0" << "\n";
+        if (S == N) cout << "0" << "\n";
         if (S < N) cout << N - S << "\n";
     }
 

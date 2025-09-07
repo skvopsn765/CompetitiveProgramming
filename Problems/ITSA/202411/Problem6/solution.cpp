@@ -14,8 +14,7 @@ int main()
     // 你的程式碼
     int n, m;
     cin >> n >> m;
-    vector<string> row(m);
-    vector<vector<string>> area(n);
+    vector<vector<string>> area(n, vector<string>(m));
     vector<pair<int, int>> numPos;
     for (int i = 0; i < n; i++)
     {
@@ -24,7 +23,7 @@ int main()
         for (int j = 0; j < m; j++)
         {
             area[i][j] = rowStr[j];
-            if (rowStr[j] >= '0' && rowStr[j] < 'A')
+            if (rowStr[j] >= '0' && rowStr[j] <= '9')
             {
                 numPos.emplace_back(i, j);
             }
@@ -40,20 +39,33 @@ int main()
         int a = pos.first;
         int b = pos.second;
         int bombCount = 0;
+        int questionCount = 0;
         for (int i = a - 1; i <= a + 1; i++)
         {
-            if (i > n) continue;
+            if (i > n - 1 || i < 0) continue;
             for (int j = b - 1; j <= b + 1; j++)
             {
-                if (j > m) continue;
-                if (area[i][j][0] == '*' || area[i][j][0] == '?')
+                if (j > m - 1 || j < 0) continue;
+                if (area[i][j][0] == '*')
                 {
                     bombCount++;
+                }
+                if (area[i][j][0] == '?')
+                {
+                    questionCount++;
                 }
             }
         }
 
-        if (bombCount != area[a][b][0] - '0') cout << "ERROR" << "\n";
+        int markCount = area[a][b][0] - '0';
+        if (bombCount != markCount)
+        {
+            if (bombCount + questionCount < markCount)
+            {
+                cout << "ERROR" << "\n";
+                return 0;
+            }
+        }
     }
 
     cout << "PASS" << "\n";

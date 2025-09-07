@@ -6,6 +6,14 @@
 #include <vector>
 using namespace std;
 
+int getNumber(string str)
+{
+    if (str == "O") return 0;
+    if (str == "A") return 1;
+    if (str == "S") return 2;
+    if (str == "AS") return 3;
+    if (str == "SA") return 3;
+}
 
 int main()
 {
@@ -14,70 +22,67 @@ int main()
     freopen("Problems/ITSA/202412/Problem2/input.txt", "r", stdin);
 #endif
 
-    map<pair<string, string>, map<string, int>> table = {};
-
-    table[{"O", "O"}]["O"] = 100;
-
-    table[{"O", "A"}]["O"] = 50;
-    table[{"O", "A"}]["A"] = 50;
-
-    table[{"O", "S"}]["O"] = 50;
-    table[{"O", "S"}]["S"] = 50;
-
-    table[{"O", "AS"}]["A"] = 50;
-    table[{"O", "AS"}]["S"] = 50;
-
-    table[{"A", "A"}]["A"] = 75;
-    table[{"A", "A"}]["O"] = 25;
-
-    table[{"A", "S"}]["A"] = 25;
-    table[{"A", "S"}]["S"] = 25;
-    table[{"A", "S"}]["O"] = 25;
-    table[{"A", "S"}]["AS"] = 25;
-
-    table[{"A", "AS"}]["A"] = 50;
-    table[{"A", "AS"}]["S"] = 25;
-    table[{"A", "AS"}]["AS"] = 25;
-
-    table[{"S", "S"}]["S"] = 75;
-    table[{"S", "S"}]["O"] = 25;
-
-    table[{"S", "AS"}]["A"] = 25;
-    table[{"S", "AS"}]["S"] = 50;
-    table[{"S", "AS"}]["AS"] = 25;
-
-    table[{"AS", "AS"}]["A"] = 25;
-    table[{"AS", "AS"}]["S"] = 25;
-    table[{"AS", "AS"}]["AS"] = 50;
-
-    int n;
-    cin >> n;
-    struct my_struct
-    {
-        string first;
-        string second;
-        string result;
+    map<pair<int, int>, map<int, int>> table = {
     };
-    vector<my_struct> v(n);
-    for (int i = 0; i < n; i++)
+
+    table[{0,0}][0] = 100;
+
+    table[{0,1}][0] = 50;
+    table[{0,1}][1] = 50;
+
+    table[{0,2}][0] = 50;
+    table[{0,2}][2] = 50;
+
+    table[{0,3}][1] = 50;
+    table[{0,3}][2] = 50;
+
+    table[{1,1}][0] = 25;
+    table[{1,1}][1] = 75;
+
+    table[{1,2}][0] = 25;
+    table[{1,2}][1] = 25;
+    table[{1,2}][2] = 25;
+    table[{1,2}][3] = 25;
+
+    table[{1,3}][1] = 50;
+    table[{1,3}][2] = 25;
+    table[{1,3}][3] = 25;
+
+    table[{2,2}][0] = 25;
+    table[{2,2}][2] = 75;
+
+   table[{2,3}][1] = 25;
+   table[{2,3}][2] = 50;
+   table[{2,3}][3] = 25;
+
+   table[{3,3}][1] = 25;
+   table[{3,3}][2] = 25;
+   table[{3,3}][3] = 50;
+
+    int count;
+    cin >> count;
+
+    for (int i=0; i<count; i++)
     {
-        cin >> v[i].first >> v[i].second >> v[i].result;
-        auto outerIt = table.find({v[i].first, v[i].second});
-        if (outerIt == table.end())
+        string first, second, result;
+        cin >> first >> second >> result;
+        int f = getNumber(first);
+        int s = getNumber(second);
+        int r = getNumber(result);
+        pair<int, int> match = {min(f, s), max(f, s)};
+        auto tree_iterator = table.find(match);
+        if (tree_iterator != table.end())
         {
-            outerIt = table.find({v[i].second, v[i].first});
-            if (outerIt == table.end())
+            auto& innerMap = tree_iterator->second;
+            auto innerIt = innerMap.find(r);
+            if (innerIt != innerMap.end())
+            {
+                cout << innerIt->second << "\n";
+            }
+            else
             {
                 cout << "NO" << "\n";
-                continue;
             }
-        }
-
-        auto& innerMap = outerIt->second;
-        auto innerIt = innerMap.find(v[i].result);
-        if (innerIt != innerMap.end())
-        {
-            cout << innerIt->second << "\n";
         }
         else
         {
@@ -87,3 +92,5 @@ int main()
 
     return 0;
 }
+
+

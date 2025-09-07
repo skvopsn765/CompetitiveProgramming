@@ -30,13 +30,17 @@ int main()
 
     int n;
     cin >> n;
-    if (n <= 1 || n > 10) return 0;
-    string code;
-    cin >> code;
-    string s1 = code.substr(0,2);
-    string s2 = code.substr(2,3);
-    string s3 = code.substr(5,4);
-    string output = uoMap[s1] + " " + uoMap[s2] + " " + uoMap[s3];
-    cout << output << "\n";
+
+    for (int i=0; i<n; i++)
+    {
+        string code;
+        cin >> code;
+        string s1 = code.substr(0, 2);
+        string s2 = code.substr(2, 3);
+        string s3 = code.substr(5, 4);
+        string output = uoMap[s1] + " " + uoMap[s2] + " " + uoMap[s3];
+        cout << output << "\n";
+    }
+
     return 0;
 }

@@ -10,23 +10,21 @@ int main()
     freopen("Problems/ITSA/202412/Problem3/input.txt", "r", stdin);
 #endif
 
-    // 你的程式碼
     int interval;
     cin >> interval;
-
-    string line;
     cin.ignore();
-    getline(cin, line);
-
-    string newStr;
-    int index = 0;
-
-    while (index < line.size())
+    string input;
+    getline(cin, input);
+    auto length = input.size();
+    auto index = 0;
+    string output;
+    while (index < length)
     {
-        newStr += line[index];
-        index += interval + 1;
+        output += input[index];
+        index += (interval + 1);
     }
-    cout << newStr << '\n';
+
+    cout << output << "\n";
 
     return 0;
 }

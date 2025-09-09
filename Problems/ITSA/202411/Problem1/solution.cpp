@@ -11,17 +11,7 @@ int main() {
     #endif
 
     // 你的程式碼
-    int n;
-    cin >> n;
-    for (int i=0; i<n; i++)
-    {
-        double distance, vFront, vBack, vRun;
-        cin >> distance >> vFront >> vBack >> vRun;
-        double ans = (distance / (vFront + vBack)) * vRun;
-        // ans = static_cast<int>(ans * 100.0 + 0.5) / 100.0;
-        ans = round(ans);
-        printf("%.1f", ans);
-    }
+
 
     return 0;
 }

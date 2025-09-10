@@ -1,49 +1,26 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <stack>
-#include <vector>
+#include <iomanip>
+#include <cmath>
 using namespace std;
 
-int main()
-{
+int main() {
     // Local testing: read from file
 #ifdef LOCAL
-    freopen("Problems/ITSA/202411/Problem7/input.txt", "r", stdin);
+    freopen("Problems/ITSA/202411/Problem1/input.txt", "r", stdin);
 #endif
 
+    // 你的程式碼
     int n;
     cin >> n;
-    vector<int> v(n);
-    for (int i = 0; i < n; i++)
+    for (int i=0; i<n; i++)
     {
-        cin >> v[i];
+        double d, f1, f2, fr;
+        cin >> d >> f1 >> f2 >> fr;
+        double fd = (d / (f1 + f2)) * fr;
+        fd = (int)(fd * 100.0 + 0.5) / 100.0;
+        printf("%.2f\n", fd);
     }
-
-    vector<int> stack;
-    stack.reserve(n + 2);
-    stack.push_back(10e9);
-    int ans = 0;
-    for (int i = 0; i < n; i++)
-    {
-        while (stack.back() <= v[i])
-        {
-            int r = v[i];
-            int m = stack.back();
-            stack.pop_back();
-            int l = stack.back();
-            ans += min(l, r);
-        }
-        stack.push_back(v[i]);
-    }
-
-    while (stack.size() > 2)
-    {
-        stack.pop_back();
-        int l = stack.back();
-        ans += l;
-    }
-
-    cout << ans << "\n";
 
     return 0;
 }

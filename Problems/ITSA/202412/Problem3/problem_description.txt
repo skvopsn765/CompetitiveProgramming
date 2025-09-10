@@ -22,7 +22,7 @@ Problem 3. 傳回紙條
 範例：
 Sample1 Input:
 2
-las eelxcowhvcneop sflvbazevuiakp
+Ias eelxcowhvcneop sfJvbazevuiakp
 
 Sample1 Output:
 I love Java

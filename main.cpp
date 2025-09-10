@@ -1,26 +1,30 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <iomanip>
-#include <cmath>
+#include <string>
 using namespace std;
 
-int main() {
+int main()
+{
     // Local testing: read from file
 #ifdef LOCAL
-    freopen("Problems/ITSA/202411/Problem1/input.txt", "r", stdin);
+    freopen("Problems/ITSA/202412/Problem3/input.txt", "r", stdin);
 #endif
 
-    // 你的程式碼
     int n;
     cin >> n;
-    for (int i=0; i<n; i++)
+    string input;
+    cin.ignore();
+    getline(cin, input);
+    int index = 0;
+    string ans;
+    while (index < input.size())
     {
-        double d, f1, f2, fr;
-        cin >> d >> f1 >> f2 >> fr;
-        double fd = (d / (f1 + f2)) * fr;
-        fd = (int)(fd * 100.0 + 0.5) / 100.0;
-        printf("%.2f\n", fd);
+        ans += input[index];
+        index += n + 1;
     }
+
+    printf("%s", ans.c_str());
+    // cout << ans << endl;
 
     return 0;
 }

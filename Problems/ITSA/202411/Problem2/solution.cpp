@@ -1,8 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int main() {
+int main()
+{
     // Local testing: read from file
 #ifdef LOCAL
     freopen("Problems/ITSA/202411/Problem2/input.txt", "r", stdin);
@@ -11,23 +13,37 @@ int main() {
     // 你的程式碼
     int n;
     cin >> n;
-    for (int i=0; i<n; i++)
-    {
-        int target;
-        cin >> target;
+    int bought;
+    int total;
+    int acc;
+    vector<int> v1;
+    v1.reserve(n);
+    vector<int> v2;
+    v2.reserve(n);
 
-        int buy = 0;
-        int count = 0;
-        while (count < target)
+    for (int i = 0; i < n; i++)
+    {
+        cin >> v1[i];
+        while (total < v1[i])
         {
-            count++;
-            buy++;
-            if (count % 3 == 0)
+            bought++;
+            total++;
+            acc++;
+            if (acc % 3 == 0)
             {
-                count++;
+                total++;
+                acc = 1;
             }
         }
-        cout << buy << "\n";
+        v2[i] = bought;
+        bought = 0;
+        total = 0;
+        acc = 0;
+    }
+
+    for (int i=0; i<n; i++)
+    {
+        cout << v2[i] << "\n";
     }
 
     return 0;

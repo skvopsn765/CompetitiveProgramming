@@ -14,25 +14,17 @@ const int MAX_VALUE = 1000000000; // 1e9
 
 class Solution {
 public:
-    int n = 0;
-    vector<int> g_nums;
-    vector<int> mem;
-
-    int dfs(int x) {
-        if (x >= n) return 0;
-        if (mem[x]) return mem[x];
-        int result = 0;
-        result = max(dfs(x + 1), dfs(x + 2) + g_nums[x]);
-        mem[x] = result;
-        return result;
-    }
-
     int rob(vector<int>& nums) {
-        n = (int)nums.size();
-        g_nums = nums;              // 直接複製內容
-        mem.assign(n, 0);           // 初始化記憶化陣列為 0
-        int result = dfs(0);
-        return result;
+        int a,b,c;
+        a=0;b=0;c=0;
+        for (int i=0; i<nums.size(); i++)
+        {
+            a = max(b, c+nums[i]);
+            c = b;
+            b = a;
+        }
+
+        return a;
     }
 };
 

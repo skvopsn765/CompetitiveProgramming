@@ -28,10 +28,15 @@ public:
     }
 
     int rob(vector<int>& nums) {
-        n = (int)nums.size();
-        g_nums = nums;              // 直接複製內容
-        mem.assign(n, 0);           // 初始化記憶化陣列為 0
+        n = nums.size();
+        g_nums.reserve(n);
+        mem.reserve(n);
+        for (int i=0; i<n; i++) {
+            g_nums[i] = nums[i];
+        }
+
         int result = dfs(0);
+        printf("%d", result);
         return result;
     }
 };

@@ -57,6 +57,42 @@ CompetitiveProgramming/
 - 常用常數定義
 - 快速輸入輸出設定
 
+### 3a. LeetCode 題目快速上手
+
+為了方便在本機大量練 LeetCode 並批次測試，專案提供 LeetCode 專用目錄與腳手架/測試腳本。
+
+- 資料夾命名：`Problems/LeetCode/<四碼題號>-<題目英文 slug>/`
+  - 例如：`Problems/LeetCode/0198-house-robber/`
+- 檔案約定：
+  - `solution.cpp`：你的解題程式
+  - `inputN.txt`、`expectedN.txt`：第 N 組測資與預期輸出（N 從 1 起）
+  - `problem_description.txt`：題目描述（可選）
+  - `output.txt`：每次執行自動產生的實際輸出
+- 輸入格式建議：
+  - 支援兩種常見寫法，擇一即可，便於從 LeetCode 範例複製：
+    - JSON 陣列：如 `[2,7,9,3,1]`
+    - 以空白分隔：如 `2 7 9 3 1`
+
+快速建立新題目骨架（需 PowerShell）：
+
+```powershell
+pwsh Utils/new_leetcode.ps1 -Id 198 -Slug house-robber
+```
+
+建立後會產生：`Problems/LeetCode/0198-house-robber/`，並放入 `solution.cpp`（LeetCode 模板）、`input1.txt`/`expected1.txt` 範例與 `problem_description.txt`。
+
+執行單題測試（Windows 批次檔）：
+
+```bash
+Utils\build_and_test.bat Problems\LeetCode\0198-house-robber
+```
+
+一鍵執行所有 LeetCode 題目的測試（PowerShell）：
+
+```powershell
+pwsh Utils/run_all_leetcode.ps1
+```
+
 ### 3. 測試程式碼
 
 #### 方法一：使用 Visual Studio（推薦）

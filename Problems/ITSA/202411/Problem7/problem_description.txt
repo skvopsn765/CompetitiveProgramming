@@ -29,3 +29,4 @@ Sample1 Input:
 
 Sample1 Output:
 18
+

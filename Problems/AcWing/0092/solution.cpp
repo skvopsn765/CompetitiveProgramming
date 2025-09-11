@@ -4,32 +4,35 @@
 #define LOCAL
 #include <cstdio>
 #include <iostream>
-#include <vector>
 using namespace std;
 
+const int N = 100;
 int n;
-vector<int> path;
+int st[N];
 
-void dfs(int u) {
-    if (u > n) {
-        for (int i = 0; i < path.size(); i++) {
-            if (i > 0) printf(" ");
-            printf("%d", path[i]);
+void dfs(int x)
+{
+    if (x > n)
+    {
+        for (int i=1; i<=n; i++)
+        {
+            if (st[i] == 1) printf("%d ", i);
         }
         printf("\n");
         return;
     }
-    
-    // 不選當前數字
-    dfs(u + 1);
-    
-    // 選當前數字
-    path.push_back(u);
-    dfs(u + 1);
-    path.pop_back();
+
+    st[x] = 1;
+    dfs(x + 1);
+    st[x] = 0;
+
+    st[x] = 2;
+    dfs(x + 1);
+    st[x] = 0;
 }
 
-int main() {
+int main()
+{
 #ifdef LOCAL
     freopen("Problems/AcWing/0092-exponential-enumeration/input.txt", "r", stdin);
 #endif

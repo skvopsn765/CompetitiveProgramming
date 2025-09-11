@@ -12,22 +12,31 @@ using namespace std;
 const int MIN_VALUE = 0;
 const int MAX_VALUE = 1000000000; // 1e9
 
-class Solution
-{
+class Solution {
 public:
     int n = 0;
+    vector<int> g_nums;
+    vector<int> mem;
 
-    int rob(vector<int>& nums)
-    {
+    int dfs(int x) {
+        if (x >= n) return 0;
+        if (mem[x]) return mem[x];
         int result = 0;
-        int temp1 = 0;
-        int temp2 = 0;
-        for (int i = nums.size() - 1; i >= 0; i--)
-        {
-            result = max(temp1, temp2 + nums[i]);
-            temp2 = temp1;
-            temp1 = result;
+        result = max(dfs(x + 1), dfs(x + 2) + g_nums[x]);
+        mem[x] = result;
+        return result;
+    }
+
+    int rob(vector<int>& nums) {
+        scanf("%d", n);
+        g_nums.reserve(n);
+        mem.reserve(n);
+        for (int i=0; i<n; i++) {
+            g_nums[i] = nums[i];
         }
+
+        int result = dfs(0);
+        printf("%d", result);
         return result;
     }
 };

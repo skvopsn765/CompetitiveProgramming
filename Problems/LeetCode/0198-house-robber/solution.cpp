@@ -28,15 +28,10 @@ public:
     }
 
     int rob(vector<int>& nums) {
-        scanf("%d", n);
-        g_nums.reserve(n);
-        mem.reserve(n);
-        for (int i=0; i<n; i++) {
-            g_nums[i] = nums[i];
-        }
-
+        n = (int)nums.size();
+        g_nums = nums;              // 直接複製內容
+        mem.assign(n, 0);           // 初始化記憶化陣列為 0
         int result = dfs(0);
-        printf("%d", result);
         return result;
     }
 };
@@ -52,13 +47,17 @@ static vector<int> readIntArrayFlexible(istream& in)
     if (!getline(in, line)) {
         return nums;
     }
+    // 去除 UTF-8 BOM（若存在）
+    if (line.size() >= 3 && (unsigned char)line[0] == 0xEF && (unsigned char)line[1] == 0xBB && (unsigned char)line[2] == 0xBF) {
+        line.erase(0, 3);
+    }
     // 去除前後空白
     auto notSpace = [](int ch) { return !isspace(ch); };
     line.erase(line.begin(), find_if(line.begin(), line.end(), notSpace));
     line.erase(find_if(line.rbegin(), line.rend(), notSpace).base(), line.end());
     if (line.empty()) return nums;
 
-    if (line.front() == '[' && line.back() == ']') {
+    if (line.find('[') != string::npos && line.find(']') != string::npos) {
         string t;
         t.reserve(line.size());
         for (char c : line) {
@@ -81,9 +80,10 @@ static vector<int> readIntArrayFlexible(istream& in)
 
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 #ifdef LOCAL
     freopen("Problems/LeetCode/0198-house-robber/input.txt", "r", stdin);
-    freopen("Problems/LeetCode/0198-house-robber/output.txt", "w", stdout);
 #endif
 
     const auto solution = new Solution();

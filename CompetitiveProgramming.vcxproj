@@ -162,7 +162,6 @@
     <ClInclude Include="Utils\TestFramework.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Utils\build_and_test.bat" />
     <Text Include="README.md" />
     <Text Include="UDEBUG_INTEGRATION.md" />
   </ItemGroup>

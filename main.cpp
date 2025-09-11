@@ -38,7 +38,7 @@ void dfs(int x)
 int main()
 {
 #ifdef LOCAL
-    freopen("Problems/Luogu/P1706-全排列问题/input.txt", "r", stdin);
+    freopen("Problems/Luogu/P1706/input.txt", "r", stdin);
 #endif
 
     scanf("%d", &n);

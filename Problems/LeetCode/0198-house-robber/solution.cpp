@@ -12,32 +12,22 @@ using namespace std;
 const int MIN_VALUE = 0;
 const int MAX_VALUE = 1000000000; // 1e9
 
-class Solution {
+class Solution
+{
 public:
-    int n = 0;
-    vector<int> g_nums;
-    vector<int> mem;
-
-    int dfs(int x) {
-        if (x >= n) return 0;
-        if (mem[x]) return mem[x];
-        int result = 0;
-        result = max(dfs(x + 1), dfs(x + 2) + g_nums[x]);
-        mem[x] = result;
-        return result;
-    }
-
-    int rob(vector<int>& nums) {
-        n = nums.size();
-        g_nums.reserve(n);
-        mem.reserve(n);
-        for (int i=0; i<n; i++) {
-            g_nums[i] = nums[i];
+    int rob(vector<int>& nums)
+    {
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        for (const int num : nums)
+        {
+            a = max(b, c + num);
+            c = b;
+            b = a;
         }
 
-        int result = dfs(0);
-        printf("%d", result);
-        return result;
+        return a;
     }
 };
 
@@ -49,11 +39,14 @@ static vector<int> readIntArrayFlexible(istream& in)
 {
     vector<int> nums;
     string line;
-    if (!getline(in, line)) {
+    if (!getline(in, line))
+    {
         return nums;
     }
     // 去除 UTF-8 BOM（若存在）
-    if (line.size() >= 3 && (unsigned char)line[0] == 0xEF && (unsigned char)line[1] == 0xBB && (unsigned char)line[2] == 0xBF) {
+    if (line.size() >= 3 && (unsigned char)line[0] == 0xEF && (unsigned char)line[1] == 0xBB && (unsigned char)line[2]
+        == 0xBF)
+    {
         line.erase(0, 3);
     }
     // 去除前後空白
@@ -62,10 +55,12 @@ static vector<int> readIntArrayFlexible(istream& in)
     line.erase(find_if(line.rbegin(), line.rend(), notSpace).base(), line.end());
     if (line.empty()) return nums;
 
-    if (line.find('[') != string::npos && line.find(']') != string::npos) {
+    if (line.find('[') != string::npos && line.find(']') != string::npos)
+    {
         string t;
         t.reserve(line.size());
-        for (char c : line) {
+        for (char c : line)
+        {
             if (c == '[' || c == ']' || c == ',') c = ' ';
             t.push_back(c);
         }

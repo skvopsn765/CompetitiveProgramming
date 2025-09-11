@@ -39,7 +39,6 @@ int main()
 {
 #ifdef LOCAL
     freopen("Problems/Luogu/P1706-全排列问题/input.txt", "r", stdin);
-    freopen("Problems/Luogu/P1706-全排列问题/output.txt", "w", stdout);
 #endif
 
     scanf("%d", &n);

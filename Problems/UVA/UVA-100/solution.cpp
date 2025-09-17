@@ -19,7 +19,7 @@ int cycleLength(int n) {
 int main() {
     // Local testing: read from file
     #ifdef LOCAL
-    freopen("Problems/UVA_100/input.txt", "r", stdin);
+    freopen("Problems/UVA/UVA-100/input.txt", "r", stdin);
     #endif
 
     int i, j;

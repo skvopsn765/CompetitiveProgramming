@@ -28,6 +28,9 @@ int solveDP(int k, int i, int j) {
 }
 
 int main() {
+#ifdef LOCAL
+    freopen("Problems/UVA/UVA-882/input.txt", "r", stdin);
+#endif
     int T;
     if (scanf("%d", &T) != 1) return 0;
     while (T--) {

@@ -1,5 +1,4 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define LOCAL
 #include <cstdio>
 #include <cstring>
 #include <algorithm>
@@ -15,7 +14,8 @@ static unsigned char visitedMemo[MAX_K][MAX_M][MAX_M];
 static int tri(int n) { return n * (n + 1) / 2; }
 
 int solveDP(int k, int i, int j) {
-    if (i >= j) return 0;
+    if (i > j) return 0;
+    if (i == j) return i;
     if (k == 1) return tri(j) - tri(i - 1);
     if (visitedMemo[k][i][j]) return arrMemo[k][i][j];
     int best = INF_COST;
@@ -28,9 +28,6 @@ int solveDP(int k, int i, int j) {
 }
 
 int main() {
-#ifdef LOCAL
-    freopen("Problems/UVA/UVA-882/input.txt", "r", stdin);
-#endif
     int T;
     if (scanf("%d", &T) != 1) return 0;
     while (T--) {

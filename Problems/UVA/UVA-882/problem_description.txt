@@ -1,0 +1,24 @@
+UVA 882 - The Mailbox Manufacturers Problem
+
+Input
+The input starts with a single integer N (1 ≤ N ≤ 10) indicating the number of test cases to follow.
+Each test case is described by a line containing two integers: k and m, separated by a single space.
+
+Output
+For each test case print one line with a single integer indicating the minimum number of fire-crackers
+that is needed, in the worst case, in order to figure out how many crackers the mailbox prototype can
+withstand.
+
+Sample input
+4
+1 10
+1 100
+3 73
+5 100
+
+Sample Output
+55
+5050
+382
+495
+

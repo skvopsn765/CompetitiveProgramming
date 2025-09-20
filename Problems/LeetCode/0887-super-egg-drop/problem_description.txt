@@ -1,0 +1,12 @@
+LeetCode 887. Super Egg Drop
+
+Input format:
+- Single line containing k and n (supports formats like "k = 2, n = 6" or "2 6").
+
+Output:
+- Single integer: the minimum number of moves.
+
+Constraints:
+- 1 <= k <= 100
+- 1 <= n <= 10^4
+

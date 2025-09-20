@@ -1,15 +1,15 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string.h>
 #include <stdio.h>
 #include <algorithm>
 
 using namespace std;
-#define maxk 10+5
-#define maxm 100+5
-#define INF 0x3f3f3f3f
-
-int dp[maxk][maxm][maxm];
-bool visited[maxk][maxm][maxm];
+const int INF = 0x3f3f3f3f;
+const int max_k = 10;
+const int max_x = 100;
+const int max_m = 100;
+int dp[max_k][max_x][max_m];
 
 int dfs(int k, int i, int j)
 {
@@ -19,19 +19,19 @@ int dfs(int k, int i, int j)
     if (k == 0)
         return INF;
 
-    if (visited[k][i][j])
+    if (dp[k][i][j] != -1)
         return dp[k][i][j];
 
-    visited[k][i][j] = true;
-    int& ret = dp[k][i][j];
+    int min = INF;
 
-    int x;
-    ret = INF;
+    for (int x = i; x <= j; x++)
+    {
+        int value = x + max(dfs(k - 1, i, x - 1), dfs(k, x + 1, j));
+        if (value < min) min = value;
+    }
+    dp[k][i][j] = min;
 
-    for (x = i; x <= j; x++)
-        ret = min(ret, x + max(dfs(k - 1, i, x - 1), dfs(k, x + 1, j)));
-
-    return ret;
+    return min;
 }
 
 int main()
@@ -39,14 +39,16 @@ int main()
 #ifdef LOCAL
     freopen("Problems/UVA/UVA-882/input.txt", "r", stdin);
 #endif
-    int Cas, k, m;
-    memset(visited, false, sizeof(visited));
-    scanf("%d", &Cas);
-
-    while (Cas--)
+    int C;
+    scanf("%d", &C);
+    memset(dp, -1, sizeof dp);
+    while (C--)
     {
+        int k, m;
         scanf("%d %d", &k, &m);
-        printf("%d\n", dfs(k, 1, m));
+        int ans = dfs(k, 1, m);
+        printf("%d\n", ans);
     }
+
     return 0;
 }

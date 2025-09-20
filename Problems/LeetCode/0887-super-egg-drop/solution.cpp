@@ -10,14 +10,15 @@ using namespace std;
 class Solution
 {
 public:
-    const int INF = 0x3f3f3f3f;
     int arr[105][10005];
+    const int INF = 0x3f3f3f3f;
 
     int dp(int k, int n)
     {
+        if (n == 0) return 1;
+        if (n == 1) return 1;
         if (k == 0) return INF;
         if (k == 1) return n;
-        if (n <= 0) return 0;
         if (arr[k][n] != -1) return arr[k][n];
         int result = INF;
         int lo = 1;
@@ -27,16 +28,22 @@ public:
             int mid = (lo + hi) / 2;
             int broken = dp(k - 1, mid - 1);
             int notBroken = dp(k, n - mid);
-            int worst = 1 + max(broken, notBroken);
-            result = min(result, worst);
-            if (broken < notBroken) lo = mid + 1;
-            else hi = mid - 1;
+            int val = 1 + max(broken, notBroken);
+            result = min(result, val);
+
+            if (broken > notBroken) hi = mid - 1;
+            else lo = mid + 1;
         }
 
+        // 先推出 for 的版本，超時之後簡化才用二分法解題
+        // for (int i = 1; i < n; i++)
+        // {
+        //     int val = 1 + max(dp(k - 1, i - 1), dp(k, n - i));
+        //     result = min(result, val);
+        // }
         arr[k][n] = result;
         return result;
     }
-
 
     int superEggDrop(int k, int n)
     {

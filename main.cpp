@@ -1,44 +1,83 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include <cstdio>
 #include <iostream>
-#include <string.h>
-#include <stdio.h>
+#include <string>
+#include <sstream>
 #include <algorithm>
-
+#include <cctype>
 using namespace std;
 
-const int INF = 0x3f3f3f3f;
-int arr[100][1000][1000];
-
-int dp(int k, int i, int j)
-{
-    if (i > j) return 0;
-    if (k == 0) return INF;
-    if (arr[k][i][j] != -1) return arr[k][i][j];
-    int result = INF;
-    for (int x = i; x <= j; x++)
-    {
-        int val = x + max(dp(k - 1, i, x - 1), dp(k, x + 1, j));
-        result = min(result, val);
+class Solution {
+public:
+    const int INF = 0x3f3f3f3f;
+    int arr[50][50][50];
+    int dp(int k, int i, int j) {
+        if (i > j) return 0;
+        if (k == 0) return INF;
+        if (arr[k][i][j] != -1) return arr[k][i][j];
+        int result = INF;
+        for (int x = i; x <= j; x++) {
+            int val = x + max(dp(k - 1, i, x - 1), dp(k, x + 1, j));
+            result = min(result, val);
+        }
+        arr[k][i][j] = result;
+        return result;
     }
-    arr[k][i][j] = result;
-    return result;
+
+
+    int superEggDrop(int k, int n) {
+        memset(arr, -1, sizeof arr);
+        return dp(k, 1, n);
+    }
+};
+
+static inline void trim(string &s) {
+    auto notSpace = [](int ch){ return !isspace(ch); };
+    s.erase(s.begin(), find_if(s.begin(), s.end(), notSpace));
+    s.erase(find_if(s.rbegin(), s.rend(), notSpace).base(), s.end());
 }
 
-int main()
-{
+static bool readTwoIntsFlexible(istream &in, int &k, int &n) {
+    string line;
+    if (!getline(in, line)) return false;
+    trim(line);
+    if (line.empty()) return false;
+
+    if (line.find('=') != string::npos) {
+        string t; t.reserve(line.size());
+        for (char c : line) {
+            if (isdigit((unsigned char)c) || c=='-' ) t.push_back(c);
+            else t.push_back(' ');
+        }
+        stringstream ss(t);
+        if (!(ss >> k)) return false;
+        if (!(ss >> n)) return false;
+        return true;
+    } else {
+        stringstream ss(line);
+        if (!(ss >> k)) return false;
+        if (!(ss >> n)) return false;
+        return true;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
 #ifdef LOCAL
-    freopen("Problems/UVA/UVA-882/input.txt", "r", stdin);
+    freopen("Problems/LeetCode/0887-super-egg-drop/input.txt", "r", stdin);
 #endif
-    int N;
-    scanf("%d", &N);
-    memset(arr, -1, sizeof arr);
-    while (N--)
-    {
-        int k, m;
-        scanf("%d %d", &k, &m);
-        int result = dp(k, 1, m);
-        printf("%d\n", result);
+
+    int k = 0, n = 0;
+    if (!readTwoIntsFlexible(cin, k, n)) {
+        if (!(cin >> k >> n)) return 0;
     }
 
+    Solution sol;
+    int answer = sol.superEggDrop(k, n);
+    cout << answer << '\n';
     return 0;
 }
+
+

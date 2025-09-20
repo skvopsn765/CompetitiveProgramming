@@ -9,8 +9,25 @@ using namespace std;
 
 class Solution {
 public:
+    const int INF = 0x3f3f3f3f;
+    int arr[50][50][50];
+    int dp(int k, int i, int j) {
+        if (i > j) return 0;
+        if (k == 0) return INF;
+        if (arr[k][i][j] != -1) return arr[k][i][j];
+        int result = INF;
+        for (int x = i; x <= j; x++) {
+            int val = x + max(dp(k - 1, i, x - 1), dp(k, x + 1, j));
+            result = min(result, val);
+        }
+        arr[k][i][j] = result;
+        return result;
+    }
+
+
     int superEggDrop(int k, int n) {
-        return 0;
+        memset(arr, -1, sizeof arr);
+        return dp(k, 1, n);
     }
 };
 

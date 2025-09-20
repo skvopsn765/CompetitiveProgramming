@@ -5,33 +5,23 @@
 #include <algorithm>
 
 using namespace std;
+
 const int INF = 0x3f3f3f3f;
-const int max_k = 10;
-const int max_x = 100;
-const int max_m = 100;
-int dp[max_k][max_x][max_m];
+int arr[100][1000][1000];
 
-int dfs(int k, int i, int j)
+int dp(int k, int i, int j)
 {
-    if (i > j)
-        return 0;
-
-    if (k == 0)
-        return INF;
-
-    if (dp[k][i][j] != -1)
-        return dp[k][i][j];
-
-    int min = INF;
-
+    if (i > j) return 0;
+    if (k == 0) return INF;
+    if (arr[k][i][j] != -1) return arr[k][i][j];
+    int result = INF;
     for (int x = i; x <= j; x++)
     {
-        int value = x + max(dfs(k - 1, i, x - 1), dfs(k, x + 1, j));
-        if (value < min) min = value;
+        int val = x + max(dp(k - 1, i, x - 1), dp(k, x + 1, j));
+        result = min(result, val);
     }
-    dp[k][i][j] = min;
-
-    return min;
+    arr[k][i][j] = result;
+    return result;
 }
 
 int main()
@@ -39,15 +29,15 @@ int main()
 #ifdef LOCAL
     freopen("Problems/UVA/UVA-882/input.txt", "r", stdin);
 #endif
-    int C;
-    scanf("%d", &C);
-    memset(dp, -1, sizeof dp);
-    while (C--)
+    int N;
+    scanf("%d", &N);
+    memset(arr, -1, sizeof arr);
+    while (N--)
     {
         int k, m;
         scanf("%d %d", &k, &m);
-        int ans = dfs(k, 1, m);
-        printf("%d\n", ans);
+        int result = dp(k, 1, m);
+        printf("%d\n", result);
     }
 
     return 0;

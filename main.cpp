@@ -1,46 +1,44 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <vector>
+#include <string.h>
+#include <stdio.h>
+#include <algorithm>
+
 using namespace std;
 
 const int INF = 0x3f3f3f3f;
+int arr[100][1000][1000];
+
+int dp(int k, int i, int j)
+{
+    if (i > j) return 0;
+    if (k == 0) return INF;
+    if (arr[k][i][j] != -1) return arr[k][i][j];
+    int result = INF;
+    for (int x = i; x <= j; x++)
+    {
+        int val = x + max(dp(k - 1, i, x - 1), dp(k, x + 1, j));
+        result = min(result, val);
+    }
+    arr[k][i][j] = result;
+    return result;
+}
 
 int main()
 {
-    // Local testing: read from file
 #ifdef LOCAL
-    freopen("Problems/ITSA/202411/Problem7/input.txt", "r", stdin);
+    freopen("Problems/UVA/UVA-882/input.txt", "r", stdin);
 #endif
-    int n;
-    scanf("%d", &n);
-    vector<int> st;
-    st.push_back(INF);
-    int ans = 0;
-    while (n--)
+    int N;
+    scanf("%d", &N);
+    memset(arr, -1, sizeof arr);
+    while (N--)
     {
-        int input = 0;
-        scanf("%d", &input);
-        int back = st.back();
-        if (back <= input)
-        {
-            st.pop_back();
-            st.push_back(input);
-            ans += input;
-        }
-        else
-        {
-            st.push_back(input);
-        }
+        int k, m;
+        scanf("%d %d", &k, &m);
+        int result = dp(k, 1, m);
+        printf("%d\n", result);
     }
-
-    while (st.size() > 2)
-    {
-        st.pop_back();
-        int back = st.back();
-        ans += back;
-    }
-
-    printf("%d\n", ans);
 
     return 0;
 }

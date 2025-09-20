@@ -5,6 +5,7 @@
 #include <sstream>
 #include <algorithm>
 #include <cctype>
+#include <iso646.h>
 using namespace std;
 
 class Solution
@@ -15,24 +16,37 @@ public:
 
     int dp(int k, int n)
     {
-        if (n == 0) return 1;
-        if (n == 1) return 1;
-        if (k == 0) return INF;
         if (k == 1) return n;
+        if (k == 0) return 0;
+        if (n == 1) return 1;
+        if (n == 0) return 0;
         if (arr[k][n] != -1) return arr[k][n];
         int result = INF;
         int lo = 1;
         int hi = n;
+        // while (lo <= hi)
+        // {
+        //     int mid = (lo + hi) / 2;
+        //     int broken = dp(k - 1, mid - 1);
+        //     int notBroken = dp(k, n - mid);
+        //     int val = 1 + max(broken, notBroken);
+        //     result = min(result, val);
+        //
+        //     if (broken > notBroken) hi = mid - 1;
+        //     else lo = mid + 1;
+        // }
+        int mid;
         while (lo <= hi)
         {
-            int mid = (lo + hi) / 2;
+            int mid = lo + (hi - lo) / 2;
             int broken = dp(k - 1, mid - 1);
             int notBroken = dp(k, n - mid);
             int val = 1 + max(broken, notBroken);
             result = min(result, val);
 
             if (broken > notBroken) hi = mid - 1;
-            else lo = mid + 1;
+            else if (broken < notBroken) lo = mid + 1;
+            else break;
         }
 
         // 先推出 for 的版本，超時之後簡化才用二分法解題

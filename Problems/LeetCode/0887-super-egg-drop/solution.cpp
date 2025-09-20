@@ -7,53 +7,74 @@
 #include <cctype>
 using namespace std;
 
-class Solution {
+class Solution
+{
 public:
     const int INF = 0x3f3f3f3f;
-    int arr[50][50][50];
-    int dp(int k, int i, int j) {
-        if (i > j) return 0;
+    int arr[105][10005];
+
+    int dp(int k, int n)
+    {
         if (k == 0) return INF;
-        if (arr[k][i][j] != -1) return arr[k][i][j];
+        if (k == 1) return n;
+        if (n <= 0) return 0;
+        if (arr[k][n] != -1) return arr[k][n];
         int result = INF;
-        for (int x = i; x <= j; x++) {
-            int val = x + max(dp(k - 1, i, x - 1), dp(k, x + 1, j));
-            result = min(result, val);
+        int lo = 1;
+        int hi = n;
+        while (lo <= hi)
+        {
+            int mid = (lo + hi) / 2;
+            int broken = dp(k - 1, mid - 1);
+            int notBroken = dp(k, n - mid);
+            int worst = 1 + max(broken, notBroken);
+            result = min(result, worst);
+            if (broken < notBroken) lo = mid + 1;
+            else hi = mid - 1;
         }
-        arr[k][i][j] = result;
+
+        arr[k][n] = result;
         return result;
     }
 
 
-    int superEggDrop(int k, int n) {
+    int superEggDrop(int k, int n)
+    {
         memset(arr, -1, sizeof arr);
-        return dp(k, 1, n);
+        return dp(k, n);
     }
 };
 
-static inline void trim(string &s) {
-    auto notSpace = [](int ch){ return !isspace(ch); };
+static inline void trim(string& s)
+{
+    auto notSpace = [](int ch) { return !isspace(ch); };
     s.erase(s.begin(), find_if(s.begin(), s.end(), notSpace));
     s.erase(find_if(s.rbegin(), s.rend(), notSpace).base(), s.end());
 }
 
-static bool readTwoIntsFlexible(istream &in, int &k, int &n) {
+static bool readTwoIntsFlexible(istream& in, int& k, int& n)
+{
     string line;
     if (!getline(in, line)) return false;
     trim(line);
     if (line.empty()) return false;
 
-    if (line.find('=') != string::npos) {
-        string t; t.reserve(line.size());
-        for (char c : line) {
-            if (isdigit((unsigned char)c) || c=='-' ) t.push_back(c);
+    if (line.find('=') != string::npos)
+    {
+        string t;
+        t.reserve(line.size());
+        for (char c : line)
+        {
+            if (isdigit((unsigned char)c) || c == '-') t.push_back(c);
             else t.push_back(' ');
         }
         stringstream ss(t);
         if (!(ss >> k)) return false;
         if (!(ss >> n)) return false;
         return true;
-    } else {
+    }
+    else
+    {
         stringstream ss(line);
         if (!(ss >> k)) return false;
         if (!(ss >> n)) return false;
@@ -61,7 +82,8 @@ static bool readTwoIntsFlexible(istream &in, int &k, int &n) {
     }
 }
 
-int main() {
+int main()
+{
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
@@ -70,7 +92,8 @@ int main() {
 #endif
 
     int k = 0, n = 0;
-    if (!readTwoIntsFlexible(cin, k, n)) {
+    if (!readTwoIntsFlexible(cin, k, n))
+    {
         if (!(cin >> k >> n)) return 0;
     }
 
@@ -79,5 +102,3 @@ int main() {
     cout << answer << '\n';
     return 0;
 }
-
-

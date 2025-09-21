@@ -11,7 +11,7 @@ using namespace std;
 class Solution
 {
 public:
-    static int arr[105][10005];
+    int arr[105][10005];
     const int INF = 0x3f3f3f3f;
 
     int dp(int k, int n)
@@ -30,12 +30,12 @@ public:
             m = l + (r - l) / 2;
             int broken = dp(k - 1, m - 1);
             int notBroken = dp(k, n - m);
-            int val = 1 + max(broken, notBroken);
-            result = min(result, val);
             if (broken > notBroken) r = m - 1;
             else if (broken < notBroken) l = m + 1;
             else break;
         }
+        int val = 1 + max(dp(k - 1, m - 1), dp(k, n - m));
+        result = min(result, val);
         arr[k][n] = result;
         return result;
     }

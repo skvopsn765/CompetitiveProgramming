@@ -11,50 +11,31 @@ using namespace std;
 class Solution
 {
 public:
-    int arr[105][10005];
+    static int arr[105][10005];
     const int INF = 0x3f3f3f3f;
 
     int dp(int k, int n)
     {
+        if (k == 0) return 0; // 這兩個是必須的，因為 DP 遞迴有可能會讓他們變成 0
+        if (n == 0) return 1; // 這兩個是必須的，因為 DP 遞迴有可能會讓他們變成 0
         if (k == 1) return n;
-        if (k == 0) return 0;
         if (n == 1) return 1;
-        if (n == 0) return 0;
         if (arr[k][n] != -1) return arr[k][n];
         int result = INF;
-        int lo = 1;
-        int hi = n;
-        // while (lo <= hi)
-        // {
-        //     int mid = (lo + hi) / 2;
-        //     int broken = dp(k - 1, mid - 1);
-        //     int notBroken = dp(k, n - mid);
-        //     int val = 1 + max(broken, notBroken);
-        //     result = min(result, val);
-        //
-        //     if (broken > notBroken) hi = mid - 1;
-        //     else lo = mid + 1;
-        // }
-        int mid;
-        while (lo <= hi)
+        int l = 1;
+        int r = n;
+        int m = 0;
+        while (l <= r)
         {
-            int mid = lo + (hi - lo) / 2;
-            int broken = dp(k - 1, mid - 1);
-            int notBroken = dp(k, n - mid);
+            m = l + (r - l) / 2;
+            int broken = dp(k - 1, m - 1);
+            int notBroken = dp(k, n - m);
             int val = 1 + max(broken, notBroken);
             result = min(result, val);
-
-            if (broken > notBroken) hi = mid - 1;
-            else if (broken < notBroken) lo = mid + 1;
+            if (broken > notBroken) r = m - 1;
+            else if (broken < notBroken) l = m + 1;
             else break;
         }
-
-        // 先推出 for 的版本，超時之後簡化才用二分法解題
-        // for (int i = 1; i < n; i++)
-        // {
-        //     int val = 1 + max(dp(k - 1, i - 1), dp(k, n - i));
-        //     result = min(result, val);
-        // }
         arr[k][n] = result;
         return result;
     }

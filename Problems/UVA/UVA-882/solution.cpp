@@ -11,8 +11,10 @@ int arr[11][105][105];
 
 int dp(int k, int i, int j)
 {
-    if (i > j) return 0;      // 區間已空：答案已確定（含測到 j 仍不爆），不需再花任何爆竹
-    if (k == 0) return INF;   // 尚未確定且已無信箱可繼續測：此策略不可行，給極大成本避免被選
+    // 若把判斷順序寫反，所有「同時滿足 i > j 且 k == 0」的葉節點都會被誤判成 INF，
+    // 進而經由 max() 往上層層放大，最終把整體結果拉成 INF。
+    if (i > j) return 0; // 區間已空：答案已確定（含測到 j 仍不爆），不需再花任何爆竹
+    if (k == 0) return INF; // 尚未確定且已無信箱可繼續測：此策略不可行，給極大成本避免被選
     if (arr[k][i][j] != -1) return arr[k][i][j];
     int result = INF;
     for (int x = i; x <= j; x++)

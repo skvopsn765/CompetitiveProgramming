@@ -11,8 +11,8 @@ int arr[11][105][105];
 
 int dp(int k, int i, int j)
 {
-    if (i > j) return 0;
-    if (k == 0) return 0;
+    if (i > j) return 0;      // 區間已空：答案已確定（含測到 j 仍不爆），不需再花任何爆竹
+    if (k == 0) return INF;   // 尚未確定且已無信箱可繼續測：此策略不可行，給極大成本避免被選
     if (arr[k][i][j] != -1) return arr[k][i][j];
     int result = INF;
     for (int x = i; x <= j; x++)
@@ -36,8 +36,7 @@ int main()
     {
         int k, m;
         scanf("%d %d", &k, &m);
-        int result = dp(k, 1, m);
-        printf("%d\n", result);
+        printf("%d\n", dp(k, 1, m));
     }
 
     return 0;

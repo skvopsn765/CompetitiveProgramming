@@ -36,8 +36,7 @@ int main()
     {
         int k, m;
         scanf("%d %d", &k, &m);
-        int result = dp(k, 1, m);
-        printf("%d\n", result);
+        printf("%d\n", dp(k, 1, m));
     }
 
     return 0;

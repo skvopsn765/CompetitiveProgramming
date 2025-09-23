@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>信箱炸藥問題 DP 圖解</title>
+  <style>
+      body {
+          font-family: 'Arial', sans-serif;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 20px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          min-height: 100vh;
+      }
+      .container {
+          background: white;
+          padding: 25px;
+          border-radius: 15px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+          margin-bottom: 20px;
+      }
+      .problem-header {
+          background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+          color: white;
+          padding: 20px;
+          border-radius: 10px;
+          margin-bottom: 20px;
+          text-align: center;
+      }
+      .controls {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 15px;
+          margin: 20px 0;
+          padding: 15px;
+          background: #f8f9fa;
+          border-radius: 10px;
+      }
+      .control-group {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+      }
+      label {
+          font-weight: bold;
+          color: #333;
+      }
+      input, select, button {
+          padding: 10px;
+          border: 2px solid #ddd;
+          border-radius: 5px;
+          font-size: 16px;
+      }
+      button {
+          background: linear-gradient(135deg, #4facfe, #00f2fe);
+          color: white;
+          border: none;
+          cursor: pointer;
+          font-weight: bold;
+          transition: all 0.3s ease;
+      }
+      button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      }
+      .dp-table {
+          overflow-x: auto;
+          margin: 20px 0;
+          background: white;
+          border-radius: 10px;
+          padding: 15px;
+      }
+      .table {
+          width: 100%;
+          border-collapse: collapse;
+          font-family: 'Courier New', monospace;
+      }
+      .table th, .table td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: center;
+          position: relative;
+      }
+      .table th {
+          background: linear-gradient(135deg, #667eea, #764ba2);
+          color: white;
+          font-weight: bold;
+      }
+      .table td {
+          background: #f9f9f9;
+          transition: all 0.3s ease;
+      }
+      .table td:hover {
+          background: #e3f2fd;
+          transform: scale(1.05);
+          z-index: 10;
+          box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      }
+      .current-cell {
+          background: #ffeb3b !important;
+          animation: pulse 1s infinite;
+      }
+      .computed-cell {
+          background: #c8e6c9 !important;
+      }
+      .base-case {
+          background: #ffcdd2 !important;
+      }
+      @keyframes pulse {
+          0% { opacity: 1; }
+          50% { opacity: 0.7; }
+          100% { opacity: 1; }
+      }
+      .strategy-viz {
+          background: #f1f3f4;
+          border-radius: 10px;
+          padding: 20px;
+          margin: 20px 0;
+      }
+      .strategy-step {
+          display: flex;
+          align-items: center;
+          margin: 10px 0;
+          padding: 15px;
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      .mailbox {
+          width: 40px;
+          height: 30px;
+          background: #8bc34a;
+          border: 2px solid #689f38;
+          border-radius: 5px;
+          margin: 0 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: bold;
+          font-size: 12px;
+      }
+      .mailbox.destroyed {
+          background: #f44336;
+          border-color: #d32f2f;
+      }
+      .cracker {
+          width: 20px;
+          height: 20px;
+          background: #ff9800;
+          border-radius: 50%;
+          margin: 2px;
+          display: inline-block;
+      }
+      .decision-tree {
+          margin: 20px 0;
+          padding: 20px;
+          background: #fafafa;
+          border-radius: 10px;
+          border: 2px solid #e0e0e0;
+      }
+      .tree-node {
+          background: white;
+          border: 2px solid #2196f3;
+          border-radius: 8px;
+          padding: 10px;
+          margin: 5px;
+          display: inline-block;
+          font-weight: bold;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      .legend {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 10px;
+          margin: 20px 0;
+          padding: 15px;
+          background: #f8f9fa;
+          border-radius: 10px;
+      }
+      .legend-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+      }
+      .legend-color {
+          width: 25px;
+          height: 25px;
+          border: 2px solid #333;
+          border-radius: 3px;
+      }
+      .explanation {
+          background: linear-gradient(135deg, #a8edea, #fed6e3);
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px 0;
+      }
+      .formula {
+          background: #263238;
+          color: #4caf50;
+          padding: 15px;
+          border-radius: 8px;
+          font-family: 'Courier New', monospace;
+          font-size: 16px;
+          margin: 10px 0;
+          overflow-x: auto;
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="problem-header">
+    <h1>🧨 信箱炸藥問題 (經典 DP)</h1>
+    <p>找出最少需要多少炸藥，在最壞情況下確定信箱能承受的極限！</p>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="mailboxes">信箱數量 (k):</label>
+      <input type="number" id="mailboxes" value="2" min="1" max="5">
+    </div>
+    <div class="control-group">
+      <label for="maxCrackers">最大炸藥數 (m):</label>
+      <input type="number" id="maxCrackers" value="6" min="1" max="15">
+    </div>
+    <div class="control-group">
+      <label for="visualization">視覺化模式:</label>
+      <select id="visualization">
+        <option value="table">DP 表格</option>
+        <option value="strategy">最佳策略</option>
+        <option value="tree">決策樹</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <button onclick="calculateDP()">🔥 計算 DP</button>
+      <button onclick="showStrategy()">📋 顯示策略</button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color current-cell"></div>
+      <span>目前計算中</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color computed-cell"></div>
+      <span>已計算完成</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color base-case"></div>
+      <span>基礎情況</span>
+    </div>
+    <div class="legend-item">
+      <div class="mailbox">📮</div>
+      <span>完好信箱</span>
+    </div>
+    <div class="legend-item">
+      <div class="mailbox destroyed">💥</div>
+      <span>炸毀信箱</span>
+    </div>
+  </div>
+
+  <div id="result"></div>
+</div>
+
+<div class="container">
+  <div class="explanation">
+    <h2>🧠 演算法核心思想</h2>
+
+    <h3>1. 狀態定義</h3>
+    <div class="formula">
+      dp(k, i, j) = 有 k 個信箱，需要測試區間 [i, j] 時，最壞情況下需要的最少炸藥數
+    </div>
+
+    <h3>2. 狀態轉移</h3>
+    <p>對於每個可能的測試點 x (i ≤ x ≤ j)：</p>
+    <div class="formula">
+      dp(k, i, j) = min(x + max(dp(k-1, i, x-1), dp(k, x+1, j)))
+      |        |              |
+      花費的炸藥   信箱炸毀情況      信箱未炸毀情況
+    </div>
+
+    <h3>3. 為什麼用 max？</h3>
+    <p>因為我們要考慮<strong>最壞情況</strong>！不管信箱炸毀或沒炸毀，我們都要為最糟的情況做準備。</p>
+
+    <h3>4. 基礎情況</h3>
+    <ul>
+      <li><code>i > j</code>：區間為空，答案已確定，返回 0</li>
+      <li><code>k == 0</code>：沒有信箱了但還沒確定答案，返回無限大（不可行）</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+    let dpTable = {};
+    let currentK = 2, currentM = 6;
+
+    function calculateDP() {
+        currentK = parseInt(document.getElementById('mailboxes').value);
+        currentM = parseInt(document.getElementById('maxCrackers').value);
+
+        dpTable = {};
+
+        // 計算 DP
+        const result = dp(currentK, 1, currentM);
+
+        showResult(result);
+    }
+
+    function dp(k, i, j) {
+        if (i > j) return 0;
+        if (k === 0) return Infinity;
+
+        const key = `${k}-${i}-${j}`;
+        if (dpTable[key] !== undefined) return dpTable[key];
+
+        let result = Infinity;
+        let bestChoice = i;
+
+        for (let x = i; x <= j; x++) {
+            const cost = x + Math.max(dp(k-1, i, x-1), dp(k, x+1, j));
+            if (cost < result) {
+                result = cost;
+                bestChoice = x;
+            }
+        }
+
+        dpTable[key] = result;
+        dpTable[`${key}-choice`] = bestChoice;
+        return result;
+    }
+
+    function showResult(result) {
+        const mode = document.getElementById('visualization').value;
+        const resultDiv = document.getElementById('result');
+
+        let html = `
+                <div class="problem-header">
+                    <h2>📊 結果: ${currentK} 個信箱, 最多 ${currentM} 個炸藥</h2>
+                    <h1>最少需要 ${result} 個炸藥！</h1>
+                </div>
+            `;
+
+        if (mode === 'table') {
+            html += generateDPTable();
+        } else if (mode === 'strategy') {
+            html += generateStrategyVisualization();
+        } else if (mode === 'tree') {
+            html += generateDecisionTree();
+        }
+
+        resultDiv.innerHTML = html;
+    }
+
+    function generateDPTable() {
+        let html = '<div class="dp-table"><h3>DP 表格視覺化</h3>';
+
+        // 為每個 k 值生成一個表格
+        for (let k = 1; k <= currentK; k++) {
+            html += `<h4>k = ${k} 個信箱時的 DP 表</h4>`;
+            html += '<table class="table"><thead><tr><th>i\\j</th>';
+
+            for (let j = 1; j <= currentM; j++) {
+                html += `<th>${j}</th>`;
+            }
+            html += '</tr></thead><tbody>';
+
+            for (let i = 1; i <= currentM; i++) {
+                html += `<tr><th>${i}</th>`;
+                for (let j = 1; j <= currentM; j++) {
+                    const key = `${k}-${i}-${j}`;
+                    const value = dpTable[key];
+                    let cellClass = '';
+                    let displayValue = '';
+
+                    if (i > j) {
+                        cellClass = 'base-case';
+                        displayValue = '0';
+                    } else if (value === undefined) {
+                        displayValue = '-';
+                    } else if (value === Infinity) {
+                        displayValue = '∞';
+                    } else {
+                        cellClass = 'computed-cell';
+                        displayValue = value;
+                    }
+
+                    html += `<td class="${cellClass}" title="dp(${k},${i},${j}) = ${displayValue}">${displayValue}</td>`;
+                }
+                html += '</tr>';
+            }
+            html += '</tbody></table>';
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+    function generateStrategyVisualization() {
+        let html = '<div class="strategy-viz"><h3>🎯 最佳測試策略</h3>';
+
+        function getStrategy(k, i, j) {
+            if (i > j) return null;
+            const key = `${k}-${i}-${j}`;
+            const choice = dpTable[`${key}-choice`];
+            return {
+                range: [i, j],
+                choice: choice,
+                cost: dpTable[key],
+                mailboxes: k
+            };
+        }
+
+        const mainStrategy = getStrategy(currentK, 1, currentM);
+        if (mainStrategy) {
+            html += `
+                    <div class="strategy-step">
+                        <strong>初始狀態：</strong>
+                        ${Array.from({length: currentK}, () => '<div class="mailbox">📮</div>').join('')}
+                        <span>測試範圍 [${mainStrategy.range[0]}, ${mainStrategy.range[1]}]</span>
+                    </div>
+                `;
+
+            html += `
+                    <div class="strategy-step">
+                        <strong>第一步：</strong> 用 ${mainStrategy.choice} 個炸藥測試
+                        <div style="margin-left: 20px;">
+                            <div>💥 如果炸毀：剩 ${currentK-1} 個信箱，測試範圍變成 [${mainStrategy.range[0]}, ${mainStrategy.choice-1}]</div>
+                            <div>✅ 如果沒炸毀：剩 ${currentK} 個信箱，測試範圍變成 [${mainStrategy.choice+1}, ${mainStrategy.range[1]}]</div>
+                        </div>
+                    </div>
+                `;
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+    function generateDecisionTree() {
+        let html = '<div class="decision-tree"><h3>🌳 決策樹分析</h3>';
+
+        function buildTreeNode(k, i, j, depth = 0) {
+            if (depth > 3 || i > j) return '';
+
+            const key = `${k}-${i}-${j}`;
+            const choice = dpTable[`${key}-choice`];
+            const cost = dpTable[key];
+
+            if (cost === undefined || cost === Infinity) return '';
+
+            const indent = '　'.repeat(depth);
+            let nodeHtml = `
+                    <div style="margin-left: ${depth * 30}px;">
+                        <div class="tree-node">
+                            dp(${k}, ${i}, ${j}) = ${cost}
+                            ${choice ? `<br>選擇: ${choice}` : ''}
+                        </div>
+                `;
+
+            if (choice && depth < 2) {
+                nodeHtml += `
+                        <div style="margin-left: 20px; margin-top: 10px;">
+                            <div>炸毀情況: ${buildTreeNode(k-1, i, choice-1, depth+1)}</div>
+                            <div>未炸毀情況: ${buildTreeNode(k, choice+1, j, depth+1)}</div>
+                        </div>
+                    `;
+            }
+
+            nodeHtml += '</div>';
+            return nodeHtml;
+        }
+
+        html += buildTreeNode(currentK, 1, currentM);
+        html += '</div>';
+        return html;
+    }
+
+    function showStrategy() {
+        document.getElementById('visualization').value = 'strategy';
+        calculateDP();
+    }
+
+    // 初始化
+    calculateDP();
+</script>
+
+<div class="container">
+  <div class="explanation">
+    <h2>💡 解題關鍵洞察</h2>
+
+    <h3>1. 這不是普通的二分搜尋！</h3>
+    <p>雖然看起來像二分搜尋，但關鍵差異是：<strong>信箱會被炸毀</strong>！所以我們不能總是選擇中間點。</p>
+
+    <h3>2. 為什麼要考慮最壞情況？</h3>
+    <p>因為我們需要<strong>保證</strong>在任何情況下都能找到答案。如果我們只考慮平均情況，可能會遇到炸藥不夠的尷尬局面！</p>
+
+    <h3>3. 狀態空間的含義</h3>
+    <ul>
+      <li><strong>k</strong>：可用的信箱數量（資源限制）</li>
+      <li><strong>[i, j]</strong>：可能的承受範圍（搜尋空間）</li>
+      <li><strong>回傳值</strong>：保證找到答案需要的最少炸藥數</li>
+    </ul>
+
+    <h3>4. 記憶化的重要性</h3>
+    <p>同樣的子問題會被重複計算很多次，記憶化可以將時間複雜度從指數級降到多項式級！</p>
+
+    <div class="formula">
+      時間複雜度: O(k × m³)
+      空間複雜度: O(k × m²)
+    </div>
+  </div>
+</div>
+</body>
+</html>

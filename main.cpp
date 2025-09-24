@@ -1,45 +1,47 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <string.h>
-#include <stdio.h>
-#include <algorithm>
-
+#include <queue>
 using namespace std;
 
-const int INF = 0x3f3f3f3f;
-int arr[11][105][105];
-
-int dp(int k, int i, int j)
-{
-    // 若把判斷順序寫反，所有「同時滿足 i > j 且 k == 0」的葉節點都會被誤判成 INF，
-    // 進而經由 max() 往上層層放大，最終把整體結果拉成 INF。
-    if (i > j) return 0; // 區間已空：答案已確定（含測到 j 仍不爆），不需再花任何爆竹
-    if (k == 0) return INF; // 尚未確定且已無信箱可繼續測：此策略不可行，給極大成本避免被選
-    if (arr[k][i][j] != -1) return arr[k][i][j];
-    int result = INF;
-    for (int x = i; x <= j; x++)
-    {
-        int val = x + max(dp(k - 1, i, x - 1), dp(k, x + 1, j));
-        result = min(result, val);
-    }
-    arr[k][i][j] = result;
-    return result;
-}
 
 int main()
 {
 #ifdef LOCAL
-    freopen("Problems/UVA/UVA-882/input.txt", "r", stdin);
+    freopen("Problems/UVA/UVA-1203/input.txt", "r", stdin);
 #endif
+
+    struct item
+    {
+        int q_num;
+        int period;
+        int time;
+        bool operator<(const item &a) const
+        {
+            if (time != a.time) return time > a.time;
+            return q_num > a.q_num;
+        }
+    };
+
+    char str[1000];
+    priority_queue<item> pq;
+    while (scanf("%s", str) && str[0] != '#')
+    {
+        const auto it = new item();
+        scanf("%d", &it->q_num);
+        scanf("%d", &it->period);
+        it->time = it->period;
+        pq.push(*it);
+    }
+
     int N;
     scanf("%d", &N);
-    memset(arr, -1, sizeof arr);
     while (N--)
     {
-        int k, m;
-        scanf("%d %d", &k, &m);
-        int dp1 = dp(k, 1, m);
-        printf("%d\n", dp1);
+        auto it = pq.top();
+        printf("%d\n", it.q_num);
+        pq.pop();
+        it.time += it.period;
+        pq.push(it);
     }
 
     return 0;

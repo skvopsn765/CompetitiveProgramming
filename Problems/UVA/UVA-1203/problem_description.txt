@@ -1,3 +1,5 @@
+https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3644
+
 UVA 1203 - Argus
 
 A data stream is a real-time, continuous, ordered sequence of items. Some examples include sensor

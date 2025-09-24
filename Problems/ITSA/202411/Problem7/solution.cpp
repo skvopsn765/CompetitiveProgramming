@@ -11,24 +11,28 @@ int main()
 #ifdef LOCAL
     freopen("Problems/ITSA/202411/Problem7/input.txt", "r", stdin);
 #endif
-    int n;
-    scanf("%d", &n);
-    vector<int> st;
-    st.push_back(INF);
+
+    int N;
+    scanf("%d", &N);
+    vector<int> v;
+    v.push_back(INF);
     int ans = 0;
-    int ele = 0;
-    scanf("%d", &ele);
-    st.push_back(ele);
-    while (st.size() > 2)
+    while (N--)
     {
-        scanf("%d", &ele);
-        int back = st.back();
-        if (back <= ele)
+        int val = 0;
+        scanf("%d", &val);
+        if (v.back() <= val)
         {
-            st.pop_back();
-            st.push_back(ele);
-            ans += back;
+            ans += val;
+            v.pop_back();
         }
+        v.push_back(val);
+    }
+
+    while (v.size() > 2)
+    {
+        v.pop_back();
+        ans += v.back();
     }
 
     printf("%d\n", ans);

@@ -1,48 +1,41 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <queue>
+#include <vector>
 using namespace std;
 
+const int INF = 0x3f3f3f3f;
 
 int main()
 {
+    // Local testing: read from file
 #ifdef LOCAL
-    freopen("Problems/UVA/UVA-1203/input.txt", "r", stdin);
+    freopen("Problems/ITSA/202411/Problem7/input.txt", "r", stdin);
 #endif
-
-    struct item
-    {
-        int q_num;
-        int period;
-        int time;
-        bool operator<(const item &a) const
-        {
-            if (time != a.time) return time > a.time;
-            return q_num > a.q_num;
-        }
-    };
-
-    char str[1000];
-    priority_queue<item> pq;
-    while (scanf("%s", str) && str[0] != '#')
-    {
-        const auto it = new item();
-        scanf("%d", &it->q_num);
-        scanf("%d", &it->period);
-        it->time = it->period;
-        pq.push(*it);
-    }
 
     int N;
     scanf("%d", &N);
+    vector<int> v;
+    v.push_back(INF);
+    int ans = 0;
     while (N--)
     {
-        auto it = pq.top();
-        printf("%d\n", it.q_num);
-        pq.pop();
-        it.time += it.period;
-        pq.push(it);
+        int val = 0;
+        scanf("%d", &val);
+        if (v.back() <= val)
+        {
+            ans += val;
+            v.pop_back();
+        }
+        v.push_back(val);
     }
+
+    while (v.size() > 2)
+    {
+        v.pop_back();
+        ans += v.back();
+    }
+
+    printf("%d\n", ans);
 
     return 0;
 }

@@ -11,19 +11,27 @@ int arr[11][105][105];
 
 int dp(int k, int i, int j)
 {
-    // 若把判斷順序寫反，所有「同時滿足 i > j 且 k == 0」的葉節點都會被誤判成 INF，
-    // 進而經由 max() 往上層層放大，最終把整體結果拉成 INF。
-    if (i > j) return 0; // 區間已空：答案已確定（含測到 j 仍不爆），不需再花任何爆竹
-    if (k == 0) return INF; // 尚未確定且已無信箱可繼續測：此策略不可行，給極大成本避免被選
+    // 邊界1：區間為空 → 答案已確定
+    if (i > j) return 0;
+
+    // 邊界2：沒有信箱但還需測試 → 策略不可行
+    if (k == 0) return INF;
+
+    // 記憶化：避免重複計算
     if (arr[k][i][j] != -1) return arr[k][i][j];
+
     int result = INF;
+    // 嘗試所有可能的測試點
     for (int x = i; x <= j; x++)
     {
-        int val = x + max(dp(k - 1, i, x - 1), dp(k, x + 1, j));
-        result = min(result, val);
+        // 計算選擇 x 的總成本
+        int cost_explode = dp(k - 1, i, x - 1);     // 炸毀情況
+        int cost_survive = dp(k, x + 1, j);         // 未炸毀情況
+        int total_cost = x + max(cost_explode, cost_survive);  // 最壞情況
+        result = min(result, total_cost);           // 選最優策略
     }
-    arr[k][i][j] = result;
-    return result;
+
+    return arr[k][i][j] = result;
 }
 
 int main()

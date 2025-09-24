@@ -168,6 +168,9 @@
   <ItemGroup>
     <None Include="Problems\**" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Problems\UVA\UVA-1203\" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
